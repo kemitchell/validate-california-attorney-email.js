@@ -1,3 +1,4 @@
+```javascript
 var assert = require('assert')
 var validate = require('./')
 
@@ -13,5 +14,6 @@ validate(291465, 'kyle@kemitchell.com', function (error, match) {
 
 validate(291465, 'test@example.com', function (error, match) {
   assert.ifError(error, 'no error')
-  assert.equal(match, false, 'match')
+  assert.strictEqual(match, false, 'match')
 })
+```
