@@ -1,0 +1,13 @@
+{
+  "name": "validate-california-attorney-email",
+  "private": true,
+  "description": "validate an e-mail against members.calbar.ca.gov",
+  "author": "Kyle E. Mitchell <kyle@kemitchell.com> (https://kemitchell.com/)",
+  "repository": "kemitchell/validate-california-attorney-email.js",
+  "dependencies": {
+    "simple-concat": "^1.0.0"
+  },
+  "scripts": {
+    "test": "node test.js"
+  }
+}
