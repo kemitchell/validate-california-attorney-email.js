@@ -25,6 +25,15 @@ module.exports = function (number, email, callback) {
       }
       simpleConcat(response, function (error, buffer) {
         if (error) return done(error)
+        // The Bar's database does some predictable mangling and
+        // encoding on e-mail addresses---the real address and the
+        // "fuzz" included to prevent easy scraping---which we replicate
+        // here.
+        //
+        // We could do a function (number, callback) -> error | email
+        // if we drove a headless browser and did a query on visible
+        // text.  But this is leaner, meaner, and probably better for
+        // the use case I have in mind.
         var firstSplit = email.split('@')
         var secondSplit = firstSplit[1].split('.')
         var mangled = (
