@@ -4,12 +4,14 @@ var simpleConcat = require('simple-concat')
 var HOST = 'members.calbar.ca.gov'
 var PATH = '/fal/Member/Detail/'
 
+var ACTIVE = 'This member is active and may practice law in California.'
+
 module.exports = function (number, email, callback) {
   var calledBack = false
-  function done (optionalError, match) {
+  function done (optionalError, match, active) {
     if (!calledBack) {
       calledBack = true
-      callback(optionalError, match)
+      callback(optionalError, match, active)
     }
   }
   http.request({
@@ -25,6 +27,7 @@ module.exports = function (number, email, callback) {
       }
       simpleConcat(response, function (error, buffer) {
         if (error) return done(error)
+        var html = buffer.toString()
         // The Bar's database does some predictable mangling and
         // encoding on e-mail addresses---the real address and the
         // "fuzz" included to prevent easy scraping---which we replicate
@@ -40,7 +43,9 @@ module.exports = function (number, email, callback) {
           firstSplit[0] + '&#64;' +
           secondSplit[0] + '<span>&#46;</span>' + secondSplit[1]
         )
-        done(null, buffer.toString().indexOf(mangled) !== -1)
+        var emailAppears = html.indexOf(mangled) !== -1
+        var active = html.indexOf(ACTIVE) !== -1
+        done(null, emailAppears, active)
       })
     })
     .end()
