@@ -4,7 +4,7 @@ var simpleConcat = require('simple-concat')
 var HOST = 'members.calbar.ca.gov'
 var PATH = '/fal/Member/Detail/'
 
-var ACTIVE = 'This member is active and may practice law in California.'
+var ACTIVE = 'This attorney is active and may practice law in California.'
 
 module.exports = function (number, email, callback) {
   var calledBack = false
